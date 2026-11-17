@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mô phỏng Sắp xếp – Demo</title>
 <style>
-  /* ===== Bảng màu dùng chung (theo style guide: xám / vàng / đỏ / xanh lá) ===== */
   :root {
     --bg: #f6f7f9; --panel: #ffffff; --line: #d6d9de; --ink: #1d2330; --quiet: #5c6475;
     --accent: #2f6fdb; --accent-soft: #e6eefc;
@@ -32,7 +31,7 @@
   button, input, select { font: inherit; color: inherit; }
   button { cursor: pointer; }
 
-  /* ===== Thanh trên ===== */
+  /* Thanh trên */
   .topbar { display: flex; align-items: center; gap: 16px; padding: 10px 20px;
     background: var(--panel); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
   .brand { font-weight: 700; font-size: 17px; margin-right: auto; }
@@ -40,7 +39,7 @@
   .topbar .link:hover { background: var(--accent-soft); }
   .btn-outline { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; color: var(--quiet); }
 
-  /* ===== Bố cục chính ===== */
+  /* Bố cục chính */
   .layout { display: grid; grid-template-columns: 210px 1fr; gap: 16px; padding: 16px 20px; max-width: 1400px; margin: 0 auto; }
   /* Hai ô đặt cạnh nhau: hình | mã giả, giải thích | bảng biến */
   .pair { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 12px; align-items: stretch; }
@@ -253,12 +252,6 @@
 
 <script>
 "use strict";
-/* =====================================================================
-   1. SINH KỊCH BẢN TỪNG BƯỚC
-   Mỗi thuật toán chạy một lần trên dữ liệu và ghi lại danh sách bước.
-   Mỗi bước theo mẫu JSON chung: array, compare, swap, done, vars, line, explain.
-   (ids, ptr, counters, anim chỉ dùng nội bộ để vẽ.)
-   ===================================================================== */
 function makeRecorder(a) {
   const steps = [];
   const st = { done: [], cmp: 0, sw: 0 };
@@ -378,10 +371,6 @@ const ALGOS = {
     }
   }
 };
-
-/* =====================================================================
-   2. BỘ PHÁT BƯỚC (dùng chung cho mọi bài)
-   ===================================================================== */
 const DELAYS = [1600, 1100, 700, 400, 180];      // ms mỗi bước, theo thanh tốc độ 1..5
 const state = { algo: "bubble", input: [5, 3, 8, 1, 9, 2], steps: [], k: 0, playing: false, timer: null, anim: null };
 
@@ -426,10 +415,6 @@ function updateButtons() {
   $("btnBack").disabled = state.k === 0;
   $("btnNext").disabled = last;
 }
-
-/* =====================================================================
-   3. VẼ (Canvas) + cập nhật mã giả, bảng biến, lời giải thích
-   ===================================================================== */
 function layout(n) {
   const W = cv.clientWidth;
   const gap = 12;
@@ -516,10 +501,6 @@ function render(animate) {
   $("vars").innerHTML = rows.join("");
   updateButtons();
 }
-
-/* =====================================================================
-   4. NHẬP DỮ LIỆU, XUẤT JSON, CÂU HỎI, TIỆN ÍCH
-   ===================================================================== */
 function parseInput(txt) {
   const parts = txt.split(/[\s,;]+/).filter(Boolean);
   if (parts.length < 2 || parts.length > 10) return "Cần từ 2 đến 10 số.";
