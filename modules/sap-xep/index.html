@@ -139,7 +139,7 @@
   <div class="brand">Mô phỏng thuật toán Mảng</div>
   <button class="link" id="btnGlossary">Tra thuật ngữ</button>
   <button class="link" id="btnPresent" aria-pressed="false">Chế độ trình chiếu</button>
-  <button class="btn-outline" id="btnLogin">Đăng nhập / Tạo tài khoản</button>
+  <button class="btn-outline" id="btnLogin">Đăng nhập</button>
 </header>
 
 <main class="layout">
@@ -250,6 +250,7 @@
 </dialog>
 <div class="toast" id="toast"></div>
 
+<script src="../../engine/player.js"></script>
 <script>
 "use strict";
 function makeRecorder(a) {
@@ -371,50 +372,30 @@ const ALGOS = {
     }
   }
 };
-const DELAYS = [1600, 1100, 700, 400, 180];      // ms mỗi bước, theo thanh tốc độ 1..5
-const state = { algo: "bubble", input: [5, 3, 8, 1, 9, 2], steps: [], k: 0, playing: false, timer: null, anim: null };
+const state = { algo: "bubble", input: [5, 3, 8, 1, 9, 2], anim: null };
 
 const $ = (id) => document.getElementById(id);
 const cv = $("cv"), ctx = cv.getContext("2d");
 
+// Bộ phát bước dùng chung (engine/player.js): lo nút, thanh tốc độ, phím tắt, phát tự động.
+const player = Player.create({
+  render,
+  onFinish: markDone,
+  buttons: { play: $("btnPlay"), back: $("btnBack"), next: $("btnNext"), reset: $("btnReset") },
+  speed: $("speed"),
+  ignoreKey: () => $("glossary").open
+});
+
 function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
 
 function load(algo, input) {
-  stop();
   state.algo = algo; state.input = input;
-  state.steps = ALGOS[algo].gen(input);
-  state.k = 0;
   $("code").innerHTML = ALGOS[algo].code.map(l => `<li>${l.replace(/</g, "&lt;")}</li>`).join("");
   $("bigO").textContent = ALGOS[algo].bigO;
   renderQuiz();
-  render(false);
+  player.setSteps(ALGOS[algo].gen(input));   // dừng phát, về bước đầu và vẽ
 }
 
-function go(k, animate) {
-  k = Math.max(0, Math.min(state.steps.length - 1, k));
-  if (k === state.k && !animate) return;
-  const forward = k === state.k + 1;
-  state.k = k;
-  render(animate && forward);
-  if (state.k === state.steps.length - 1) { stop(); markDone(); }
-}
-
-function play() {
-  if (state.k >= state.steps.length - 1) state.k = 0;
-  state.playing = true; tick(); updateButtons();
-}
-function tick() {
-  if (!state.playing) return;
-  state.timer = setTimeout(() => { go(state.k + 1, true); if (state.playing) tick(); }, DELAYS[$("speed").value - 1]);
-}
-function stop() { state.playing = false; clearTimeout(state.timer); updateButtons(); }
-
-function updateButtons() {
-  const last = state.k >= state.steps.length - 1;
-  $("btnPlay").textContent = state.playing ? "⏸ Tạm dừng" : (last ? "▶ Phát lại" : "▶ Phát");
-  $("btnBack").disabled = state.k === 0;
-  $("btnNext").disabled = last;
-}
 function layout(n) {
   const W = cv.clientWidth;
   const gap = 12;
@@ -481,25 +462,24 @@ function roundRect(x, y, w, h, r) {
   ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
 }
 
-function render(animate) {
-  const s = state.steps[state.k], prev = state.steps[state.k - 1];
+function render(s, info) {   // player gọi hàm này mỗi khi đổi bước
+  const prev = info.prev;
   cancelAnimationFrame(state.anim);
-  if (animate && s.anim === "swap" && prev) {
-    const dur = Math.min(450, DELAYS[$("speed").value - 1] * 0.6), t0 = performance.now();
+  if (info.animate && s.anim === "swap" && prev) {
+    const dur = Math.min(450, info.delay * 0.6), t0 = performance.now();
     const f = (now) => { const t = Math.min(1, (now - t0) / dur); draw(s, prev, t); if (t < 1) state.anim = requestAnimationFrame(f); };
     state.anim = requestAnimationFrame(f);
   } else draw(s, null, 1);
 
   $("explain").textContent = s.explain;
   cv.setAttribute("aria-label", "Mảng hiện tại: " + s.array.join(", ") + ". " + s.explain);
-  $("stepNo").textContent = `Bước ${state.k + 1}/${state.steps.length}`;
+  $("stepNo").textContent = `Bước ${info.k + 1}/${info.total}`;
   [...$("code").children].forEach((li, idx) => li.classList.toggle("hl", idx === s.line));
   const rows = Object.entries(s.vars).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`);
   rows.push(`<tr><td>n</td><td>${s.array.length}</td></tr>`);
   rows.push(`<tr><td>Số phép so sánh</td><td>${s.cmp}</td></tr>`);
   rows.push(`<tr><td>${ALGOS[state.algo].swLabel}</td><td>${s.sw}</td></tr>`);
   $("vars").innerHTML = rows.join("");
-  updateButtons();
 }
 function parseInput(txt) {
   const parts = txt.split(/[\s,;]+/).filter(Boolean);
@@ -520,7 +500,7 @@ $("btnRandom").onclick = () => {
 };
 $("btnExport").onclick = () => {
   const data = { module: "sort", algo: state.algo, input: state.input,
-    steps: state.steps.map(s => ({ array: s.array, compare: s.compare, swap: s.swap, done: s.done, vars: s.vars, line: s.line, explain: s.explain })) };
+    steps: player.steps.map(s => ({ array: s.array, compare: s.compare, swap: s.swap, done: s.done, vars: s.vars, line: s.line, explain: s.explain })) };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob); a.download = `${state.algo}.json`; a.click();
@@ -577,11 +557,7 @@ function markDone() {   // Vãng lai: lưu tiến trình trên trình duyệt (c
 }
 try { if (localStorage.getItem("progress.sort") === "done") $("doneMark").textContent = "✓ đã học"; } catch (e) {}
 
-/* Sự kiện nút */
-$("btnPlay").onclick = () => state.playing ? stop() : play();
-$("btnNext").onclick = () => { stop(); go(state.k + 1, true); };
-$("btnBack").onclick = () => { stop(); go(state.k - 1, false); };
-$("btnReset").onclick = () => { stop(); state.k = 0; render(false); };
+/* Sự kiện nút (các nút phát, lùi, tới, làm lại do player lo) */
 document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
   document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
   load(b.dataset.algo, state.input);
@@ -596,16 +572,9 @@ $("btnPresent").onclick = () => {
   const on = document.body.classList.toggle("present");
   $("btnPresent").setAttribute("aria-pressed", on);
   $("btnPresent").textContent = on ? "Thoát trình chiếu" : "Chế độ trình chiếu";
-  render(false);
+  player.redraw();
 };
-document.addEventListener("keydown", (e) => {
-  if (["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName) || $("glossary").open) return;
-  if (e.key === " ") { e.preventDefault(); $("btnPlay").click(); }
-  else if (e.key === "ArrowRight") $("btnNext").click();
-  else if (e.key === "ArrowLeft") $("btnBack").click();
-  else if (e.key === "r" || e.key === "R") $("btnReset").click();
-});
-new ResizeObserver(() => render(false)).observe(cv);
+new ResizeObserver(() => player.redraw()).observe(cv);
 
 load("bubble", state.input);
 </script>
