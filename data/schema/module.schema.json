@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Nội dung một bài",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "order",
+    "level",
+    "sgk",
+    "algorithms",
+    "glossary"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "level": {
+      "enum": [
+        "bat-buoc",
+        "nen-co"
+      ]
+    },
+    "sgk": {
+      "type": "string"
+    },
+    "intro": {
+      "type": "string"
+    },
+    "defaultInput": {},
+    "inputRule": {
+      "type": "object"
+    },
+    "algorithms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "pseudocode"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pseudocode": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "complexity": {
+            "type": "string"
+          },
+          "counterLabels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "defaultInput": {}
+        }
+      }
+    },
+    "glossary": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

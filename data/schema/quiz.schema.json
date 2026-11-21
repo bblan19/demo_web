@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Câu hỏi củng cố của một bài",
+  "type": "object",
+  "required": [
+    "module",
+    "questions"
+  ],
+  "properties": {
+    "module": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "algorithm",
+          "level",
+          "question",
+          "options",
+          "answer",
+          "explain"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "algorithm": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "level": {
+            "enum": [
+              "nhan-biet",
+              "thong-hieu",
+              "van-dung"
+            ]
+          },
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 4,
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "explain": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
