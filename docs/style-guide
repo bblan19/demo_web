@@ -1,0 +1,392 @@
+# Quy ước giao diện (bản 1)
+
+Tài liệu này ghi các quy ước giao diện dùng chung cho mọi trang của web. Mỗi quy ước có ghi căn cứ để nhóm thống nhất khi thiết kế. Mục 1–7 lấy mã màu từ demo Sắp xếp. Mục 8–11 là thiết kế mới cho trang chủ, lộ trình, phần ôn tập và màn hình hoàn thành bài, đang chờ nhóm duyệt.
+
+Căn cứ chính của tài liệu:
+
+- Lý thuyết tải nhận thức (Sweller, 1988): bộ nhớ làm việc của người học có giới hạn, nên giao diện cần giảm những gì làm người học tốn sức mà không liên quan đến nội dung (tải ngoại lai), để học sinh tập trung hiểu thuật toán.
+- SRS v1.2, các yêu cầu NFR-USA (dễ sử dụng), NFR-CMP (tương thích trình duyệt, màn hình) và NFR-PER (hiệu năng).
+- Độ tương phản màu theo WCAG 2.1 mức AA: chữ thường cần tỉ lệ từ 4.5:1, chữ lớn (từ 18.66px đậm hoặc 24px) và hình (sao, biểu tượng, viền ô) cần từ 3:1.
+
+## 1. Bố cục trang học
+
+|Vùng|Vị trí|Lý do|
+|-|-|-|
+|Lộ trình 9 bài|Cột bên trái|Học sinh biết mình đang học bài nào|
+|Hình mô phỏng và mã giả|Cùng một hàng, đặt cạnh nhau|Học sinh nhìn được hình và dòng mã đang chạy cùng lúc, không phải đưa mắt đi xa|
+|Câu giải thích và bảng biến|Hàng ngay bên dưới|Câu giải thích nằm gần hình mà nó mô tả|
+|Bảng điều khiển|Một hàng cố định|Ở bài nào cũng nằm cùng một chỗ|
+|Ô nhập dữ liệu, mục Xem thêm|Bên dưới bảng điều khiển|Thông tin phụ đặt sau thông tin chính|
+|Câu hỏi củng cố|Cuối trang|Học sinh làm sau khi xem xong mô phỏng|
+
+Với màn hình 1366×768, học sinh phải thấy cùng lúc hình mô phỏng, mã giả, câu giải thích và bảng điều khiển mà không cần cuộn trang.
+
+Không có màn hình học nào yêu cầu đăng nhập. Nút Đăng nhập chỉ đặt ở thanh trên cùng.
+
+## 2. Màu trạng thái
+
+Bốn màu sau dùng giống nhau ở tất cả các bài, không bài nào thêm màu trạng thái khác.
+
+|Trạng thái|Màu nền|Màu viền|Dấu hiệu kèm theo|
+|-|-|-|-|
+|Chưa xét|#e9ebef|#9aa1ad, viền mảnh|Không có|
+|Đang so sánh|#ffe7a3|#d99a00, viền đậm|Viền đậm và mũi tên ▲ dưới ô|
+|Đang đổi chỗ hoặc ghi giá trị|#ffc9c4|#d23b2f, viền nét đứt|Viền nét đứt và hiệu ứng trượt|
+|Đã đúng vị trí|#c9efc9|#2e9a3a|Dấu ✓ ở góc ô|
+
+Lý do:
+
+- Màu giúp học sinh biết cần nhìn vào ô nào.
+- Mỗi màu có thêm một dấu hiệu khác ngoài màu để học sinh khó phân biệt màu, hoặc khi máy chiếu bị nhạt màu, vẫn nhận ra trạng thái.
+- Giữ bốn màu giống nhau ở mọi bài thì học sinh chỉ cần làm quen một lần.
+
+Màu giao diện:
+
+|Tên biến|Chế độ sáng|Chế độ tối|Dùng cho|
+|-|-|-|-|
+|--bg|#f6f7f9|#15181e|Nền trang|
+|--panel|#ffffff|#1d2129|Nền các khung|
+|--line|#d6d9de|#353b47|Viền, đường kẻ|
+|--ink|#1d2330|#e8ebf1|Chữ chính|
+|--quiet|#5c6475|#a3abba|Chữ phụ, nhãn|
+|--accent|#2f6fdb|#6b9bff|Nút chính, bài đang học|
+|--code-hl|#fff1c2|#4a4016|Dòng mã giả đang chạy|
+
+Màu nhấn (xanh dương) khác với bốn màu trạng thái để học sinh không nhầm nút bấm với ô đang xét.
+
+Màu phụ dùng ở trang chủ, lộ trình, phần ôn tập (mục 8–11). Các màu này chỉ để phân biệt bài và trang trí nhẹ, **không dùng làm màu trạng thái của ô**:
+
+|Tên biến|Mã màu|Dùng cho|
+|-|-|-|
+|--sao|#B45309|Ngôi sao trên nền sáng (tương phản 5:1 với nền trắng)|
+|--sao-toi|#FCD34D|Ngôi sao trên nền cột lộ trình màu tím|
+|--phu-1|#B45309|Viền trên thẻ bài cột 1|
+|--phu-2|#0F766E|Viền trên thẻ bài cột 2, thẻ trò chơi 1|
+|--phu-3|#DB2777|Viền trên thẻ bài cột 3, thẻ trò chơi 2|
+|--lo-trinh|#5B4BC4|Nền cột lộ trình|
+
+## 3. Chữ
+
+|Thành phần|Cỡ chữ thường|Cỡ chữ khi trình chiếu|
+|-|-|-|
+|Chữ nội dung|15px|18px|
+|Câu giải thích|16px|21px|
+|Mã giả|13.5px, phông đơn cách|16px|
+|Tên bài|20px, chữ đậm|24px|
+|Nhãn nhỏ (chú thích, tên khung)|13px|15px|
+|Số trong ô mảng|khoảng 38% cạnh ô, chữ đậm|tăng theo kích thước ô|
+
+- Dùng phông có sẵn của hệ thống (system-ui, Segoe UI, Roboto, Arial) để trang tải nhanh và hiển thị tốt tiếng Việt.
+- Câu giải thích quan trọng nhất ở mỗi bước nên được để cỡ chữ lớn hơn chữ nội dung.
+- Không viết hoa cả câu, không in nghiêng đoạn văn dài.
+
+## 4. Bảng điều khiển
+
+|Nút|Phím tắt|Ghi chú|
+|-|-|-|
+|Làm lại|R|Về bước đầu, giữ nguyên dữ liệu đang dùng|
+|Lùi|Mũi tên trái|Bị làm mờ ở bước đầu tiên|
+|Phát / Tạm dừng|Space|Nút chính; ở bước cuối đổi thành "Phát lại"|
+|Tới|Mũi tên phải|Bị làm mờ ở bước cuối cùng|
+|Thanh tốc độ||5 mức, mặc định là mức 3|
+
+- Nút cao ít nhất 36px và rộng ít nhất 44px để dễ bấm.
+- Hiện "Bước k/N" cạnh câu giải thích để học sinh biết mình đang ở bước nào.
+- Học sinh tự điều khiển tốc độ, đi từng bước và lùi lại được. Theo Sweller, với nội dung gồm nhiều bước liên tiếp, việc cho người học tự chia nhỏ và tự điều chỉnh nhịp độ giúp giảm tải nhận thức.
+
+## 5. Câu chữ trên giao diện
+
+- Dùng thuật ngữ như SGK: phần tử, chỉ số, đổi chỗ. Không dùng từ tiếng Anh khi đã có từ tiếng Việt.
+- Câu giải thích mỗi bước viết theo quy định trong docs/dinh-dang-du-lieu.md.
+- Tên nút ghi đúng việc nút làm, ví dụ "Dùng dãy này", "Dãy ngẫu nhiên".
+- Thông báo lỗi nói rõ sai gì và cách sửa, ví dụ "Cần từ 2 đến 10 số".
+- Xưng hô với học sinh thống nhất là "bạn".
+- Độ phức tạp thuật toán để trong mục "Xem thêm", mặc định đóng lại.
+
+## 6. Chế độ trình chiếu
+
+- Ẩn cột lộ trình để hình và mã giả rộng hơn.
+- Tăng cỡ chữ theo bảng ở mục 3, khung mô phỏng cao 280px thay cho 210px.
+- Bật và tắt bằng nút ở thanh trên, không cần đăng nhập (UC5).
+- Kiểm tra ở hai độ phân giải thường gặp của máy chiếu là 1024×768 và 1366×768.
+
+## 7. Những điều không nên làm
+
+- Không thêm hình trang trí, hình nền chuyển động hoặc âm thanh tự phát.
+- Không đặt phần chú thích màu ở xa hình mô phỏng.
+- Không mở cửa sổ bật lên khi học sinh đang xem mô phỏng, trừ bảng thuật ngữ do học sinh tự mở.
+- Không dùng chữ chạy hoặc chữ nhấp nháy.
+
+## 8. Trang chủ
+
+Trang chủ là trang đầu tiên học sinh thấy. Trang chỉ có ba vùng xếp từ trên xuống: thanh trên, khung chào, lưới chín bài học. Không có thao tác nào cần đăng nhập.
+
+### 8.1. Bố cục
+
+|Thứ tự|Vùng|Vị trí|Nội dung|Lý do|
+|-|-|-|-|-|
+|1|Thanh trên|Đầu trang, rộng hết trang|Bên trái: "Học thuật toán". Bên phải: nút "Đăng nhập"|Nút Đăng nhập chỉ đặt ở thanh trên (mục 1). Học sinh không tự tạo tài khoản (FR-AUTH-02)|
+|2|Khung chào|Dưới thanh trên, rộng bằng lưới bài|Bên trái: nhân vật tên "Bi". Ở giữa: lời chào, rồi câu mô tả, cuối cùng là nút chính. Bên phải: thanh tiến độ|Học sinh biết ngay trang làm gì và bấm vào đâu để bắt đầu|
+|3|Lưới "9 bài học"|Dưới khung chào|Tiêu đề "9 bài học", 9 thẻ bài xếp 3 cột × 3 hàng|Thấy toàn bộ nội dung chỉ trong một màn hình|
+
+### 8.2. Khung chào
+
+|Thành phần|Nội dung|Cỡ chữ và màu|
+|-|-|-|
+|Lời chào|"Chào bạn! Hôm nay mình học thuật toán nào?"|≈ 28px, đậm, màu --ink|
+|Câu mô tả|"9 bài, mỗi bài có mô phỏng từng bước và trò chơi nhỏ để luyện tập."|18px, màu --quiet|
+|Nút chính|Ghi "Bắt đầu học" khi chưa học bài nào, hoặc "Học tiếp" khi đã có tiến độ|Nền --accent, chữ trắng, đậm, cao ≥ 44px|
+|Nhãn tiến độ|"Tiến độ n/9 bài" bên trái, "Chuỗi n ngày" kèm biểu tượng ngọn lửa bên phải, cùng một hàng|16px, màu --quiet|
+|Thanh tiến độ|Thanh liền, phần đã học tô màu --accent|Cao ≈ 10px, rộng hết khối bên phải|
+|Số huy hiệu|"Huy hiệu đã nhận: m", nằm dưới thanh tiến độ (m: số huy hiệu đã nhận)|16px, màu --quiet|
+
+### 8.3. Thẻ bài
+
+Mỗi thẻ có hai lớp thông tin tách riêng:
+
+**a) Màu viền trên theo cột (chỉ để phân biệt, không mang nghĩa trạng thái):** viền trên dày ≈ 4px; cột 1 màu --phu-1, cột 2 màu --phu-2, cột 3 màu --phu-3.
+
+**b) Trạng thái của bài:**
+
+|Trạng thái|Viền quanh thẻ|Chữ trạng thái|Sao (góc phải, ngang hàng dòng "Bài k")|Ghi chú|
+|-|-|-|-|-|
+|Đã học|Mảnh, màu --line|"Đã học", màu #15803D|Số sao đã đạt (0–3), sao đặc và sao rỗng màu --sao||
+|Đang học|≈ 2px, màu --accent|"Đang học", màu #1D4ED8|☆☆☆, sao rỗng viền màu --sao|Tên bài đậm hơn các thẻ khác|
+|Chưa học|Mảnh, màu --line|"Chưa học", màu --quiet|Không hiện|Thẻ vẫn bấm được|
+
+Nội dung mỗi thẻ, từ trên xuống: dòng nhỏ "Bài k" (13px, màu --quiet) cùng sao ở góc phải nằm ngang hàng; tên bài (≈ 19px, đậm); dòng chữ trạng thái (15px).
+
+## 9. Lộ trình học và thanh tiến độ
+
+Lộ trình nằm ở cột bên trái (như mục 1), gồm hai khối xếp từ trên xuống: khối tiến độ, rồi danh sách 9 bài. Mục này dùng lại màu và cỡ chữ ở mục 2 và 3; không thêm màu trạng thái mới.
+
+### 9.1. Vị trí và nội dung
+
+|Thứ tự|Khối|Vị trí|Nội dung|Lý do|
+|-|-|-|-|-|
+|1|Nhãn cột|Đầu cột|"Lộ trình 9 bài", chữ nhỏ 14px|Học sinh biết đây là danh sách bài học|
+|2|Dòng số liệu|Ngay dưới nhãn|Bên trái: "n/9 bài" (n: số bài đã xong). Bên phải: "Chuỗi n ngày" (n: số ngày học liên tiếp)|Hai con số đặt cạnh nhau để nhìn một lần|
+|3|Thanh tiến độ|Ngay dưới dòng số liệu, rộng hết cột|Một thanh liền, bo tròn, dày ≈ 13px, có viền 1px|Thấy ngay đã học được bao nhiêu|
+|4|Danh sách 9 bài|Dưới thanh tiến độ|Mỗi bài một hàng, gồm: vòng tròn số thứ tự, tên bài, số sao|Học sinh biết mình đang học bài nào (như mục 1)|
+|5|Nền cột|Toàn bộ cột|Màu --lo-trinh (#5B4BC4)|Tách cột điều hướng khỏi vùng nội dung sáng|
+
+### 9.2. Ba trạng thái của một hàng bài
+
+|Trạng thái|Vòng tròn số (≈ 26px)|Tên bài|Sao|Nền hàng|
+|-|-|-|-|-|
+|Đã xong|Tô đặc màu phụ nhạt theo thứ tự bài (tím nhạt #b9aef5, xanh ngọc nhạt #6fdde2, hồng nhạt #f5a3cf luân phiên), **số màu --ink**|Chữ trắng, thường|Số sao đã đạt, màu --sao-toi|Không có, thấy nền cột|
+|Đang học|Xanh dương (--accent), số màu trắng|Chữ màu --ink, đậm|☆☆☆, sao rỗng viền màu --sao|Trắng, bo tròn, rộng hết hàng|
+|Chưa học|Chỉ có viền 2px màu phụ nhạt, bên trong trống, số cùng màu viền|Chữ #d9d7ec, thường|Không hiện|Không có|
+
+- Hàng cao ít nhất 36px (đúng mức tối thiểu của nút ở mục 4), cách nhau ≈ 4px.
+- Màu vòng tròn theo thứ tự luân phiên: bài 1, 4, 7 màu tím; bài 2, 5, 8 màu xanh ngọc; bài 3, 6, 9 màu hồng. Riêng bài đang học luôn dùng xanh dương (--accent).
+- Số trong vòng tròn "Đã xong" dùng màu --ink vì chữ trắng trên nền màu nhạt không đủ tương phản (chỉ khoảng 1.6–2:1).
+
+### 9.3. Các con số trong cột
+
+|Số liệu|Cách tính|Hiển thị|Ghi chú|
+|-|-|-|-|
+|Số bài đã học|Đếm bài học sinh đã hoàn thành phần Thử sức (mục 10)|"Tiến độ n/9 bài" (n: số bài đã học)|Không đếm bài đang học|
+|Thanh tiến độ|Số bài đã xong chia 9|Độ dài phần tô trên thanh|Đổi độ dài trong 0,3 giây khi hoàn thành bài|
+|Số sao mỗi bài|Từ 0 đến 3 sao, bằng số câu đúng trong 3 câu của phần Thử sức|★ tô, ☆ rỗng|Làm lại không bị trừ sao; luôn giữ số sao cao nhất|
+|Chuỗi ngày|Số ngày liên tiếp học sinh hoàn thành ít nhất một bài hoặc một lượt Thử sức|"Chuỗi n ngày" (n: số ngày học liên tiếp)|Bỏ một ngày thì tính lại từ đầu; không hiện lời nhắc tiêu cực khi chuỗi bị ngắt|
+|Huy hiệu|Nhận khi làm xong 1 bài|Số lượng ở trang chủ: "Huy hiệu đã nhận: m"|Danh sách mốc nhóm bổ sung sau|
+
+### 9.4. Hành vi của cột
+
+|Tình huống|Điều xảy ra|
+|-|-|
+|Chọn một hàng bài|Mở bài đó, hàng chuyển sang "Đang học", mô phỏng quay về bước đầu|
+|Rê chuột lên hàng|Nền hàng sáng nhẹ, con trỏ đổi thành bàn tay|
+|Dùng bàn phím|Tab đi qua từng hàng, Enter mở bài|
+|Bài chưa học|Vẫn bấm được, không khoá bài|
+|Hoàn thành một bài|Hiện màn hình ở mục 11. Khi quay lại, bài vừa xong có sao và thanh tiến độ dài thêm|
+|Chế độ trình chiếu|Ẩn cả cột (mục 6)|
+|Màn hình hẹp (dưới 900px)|Cột xếp lên trên phần nội dung, danh sách thu gọn, bấm "Lộ trình 9 bài" để mở|
+|Máy bật "giảm chuyển động"|Thanh đổi độ dài ngay, không có hiệu ứng|
+
+## 10. Ôn tập
+
+### 10.1. Phần "Thử sức · Câu hỏi củng cố"
+
+|Thành phần|Vị trí|Nội dung|Ghi chú|
+|-|-|-|-|
+|Tiêu đề khung|Đầu khung, nền chuyển màu từ hồng #DB2777 sang tím #7C3AED, chữ trắng đậm|"Thử sức · Câu hỏi củng cố"|Thanh tiêu đề ngắn hơn bề ngang khung bên dưới. Hai màu này đủ tương phản với chữ trắng|
+|Dòng dẫn|Dưới tiêu đề, chữ đậm|"Chọn một trò chơi để luyện tay"|Học sinh tự chọn trò chơi|
+|Trò chơi 1: "Tự sắp xếp"|Ở giữa, thẻ chọn trò chơi nền --phu-2 (#0F766E), chữ trắng|Mô tả: "Kéo thả các ô vào đúng chỗ"|Luyện tự làm lại thuật toán|
+|Trò chơi 2: "Sửa lỗi"|Bên phải, thẻ chọn trò chơi nền --phu-3 (#DB2777), chữ trắng|Mô tả: "Tìm dòng mã giả bị sai"|Luyện đọc mã giả|
+
+Hai trò chơi dưới đây dành cho bài Sắp xếp. Các bài khác sẽ có trò chơi riêng.
+
+#### 10.1.1. Trò chơi 1: "Tự sắp xếp"
+
+Học sinh làm gì: tự thực hiện thuật toán trên dãy ô bằng cách kéo thả đổi chỗ các ô, hoặc bấm ô thứ nhất rồi bấm ô thứ hai.
+
+**Luật chung của trò chơi:**
+
+- Chỉ được đổi chỗ **hai ô kề nhau** và **ô bên trái phải lớn hơn ô bên phải**. Đổi sai thì ô trả về chỗ cũ kèm lời báo.
+- Luật này giúp người lập trình kiểm tra đơn giản: mỗi lần đổi hợp lệ làm giảm đúng một cặp ngược thứ tự, nên tổng số lần đổi luôn bằng số cặp ngược thứ tự của dãy ban đầu.
+- Có bộ đếm "Số lần đổi chỗ".
+- Dãy xong khi tăng dần, các ô chuyển sang màu xanh lá có ✓.
+
+Màu sắc (khu vực chơi, ô, bộ đếm, nút):
+
+|Thành phần|Nền|Viền|Chữ / dấu|
+|-|-|-|-|
+|Khu vực chơi|--panel #ffffff|1px --line|--ink|
+|Ô chưa xét|#e9ebef|#9aa1ad, mảnh|Số --ink, đậm|
+|Ô cặp đang xét|#ffe7a3|#d99a00, đậm|Số --ink; mũi tên ▲ #d99a00|
+|Ô đang đổi chỗ|#ffc9c4|#d23b2f, nét đứt|Số --ink|
+|Ô đã đúng vị trí (dãy xong)|#c9efc9|#2e9a3a|Số --ink; dấu ✓ --ink ở góc ô|
+|Bộ đếm "Số lần đổi chỗ"|--bg|1px --line|Nhãn --quiet; con số --accent, đậm|
+|Nút "Kiểm tra"|--accent|Không|Trắng, đậm|
+|Nút "Làm lại câu này", "Xem cách làm", "Giữ nguyên"|--panel|1px --accent|--accent|
+|Nút khi làm mờ|#e9ebef|1px --line|--quiet|
+
+|Câu|Chế độ|Dãy số|Yêu cầu|Kết quả đúng|
+|-|-|-|-|-|
+|1|Có hướng dẫn, một lượt|4, 2, 5, 1, 3|Làm xong lượt đầu tiên (i = 0). Ô cặp đang xét tô vàng, có ▲; học sinh chọn "Đổi chỗ" bằng kéo thả hoặc "Giữ nguyên" bằng nút, rồi cặp xét tự dịch sang phải|Dãy 2, 4, 1, 3, 5 sau 3 lần đổi; ô 5 hiện ✓|
+|2|Có hướng dẫn, hai lượt|3, 5, 1, 2, 4|Làm hết hai lượt đầu|Dãy 1, 2, 3, 4, 5 sau 5 lần đổi|
+|3|Tự do|2, 4, 1, 5, 3|Tự chọn thứ tự đổi, sắp xếp tăng dần|Dãy tăng dần sau đúng 4 lần đổi (bằng số cặp ngược thứ tự: (2,1), (4,1), (4,3), (5,3))|
+
+**Cách kiểm tra:** câu đúng khi hoàn thành mà không có lần đổi nào bị từ chối. Với luật chung, mọi cách đổi hợp lệ ở câu 3 đều cần đúng 4 lần.
+
+|Trường hợp|Lời báo|
+|-|-|
+|Đổi hai ô không kề nhau|"Chỉ được đổi hai ô kề nhau."|
+|Đổi cặp đã đúng thứ tự|"Hai ô này đã đúng thứ tự (số bên trái nhỏ hơn). Không cần đổi chỗ."|
+|Ở câu có hướng dẫn, đổi sai cặp đang tô vàng|"Bạn hãy xử lý cặp đang tô vàng trước nhé!"|
+|Bấm "Kiểm tra" khi dãy chưa tăng dần|"Dãy chưa tăng dần: số 4 đang đứng trước số 3." (nêu cặp ngược thứ tự đầu tiên)|
+|Làm xong|"Đúng rồi! Dãy đã tăng dần, bạn đã đổi chỗ {k} lần."|
+
+Màu sắc (khung lời báo):
+
+|Lời báo|Nền|Viền trái 4px / viền 1px|Dấu|Chữ|
+|-|-|-|-|-|
+|Báo sai (không kề nhau, cặp đã đúng thứ tự, chưa tăng dần)|#ffc9c4|#d23b2f|✗|--ink|
+|Nhắc xử lý cặp đang tô vàng|#ffe7a3|#d99a00|ⓘ|--ink|
+|Báo đúng, làm xong|#c9efc9|#2e9a3a|✓|--ink|
+
+- Dấu ✓ ✗ ⓘ luôn đi kèm chữ, không chỉ dùng màu.
+
+**Nút:** "Kiểm tra"; "Làm lại câu này" (trả dãy về ban đầu, đếm lại từ 0); "Xem cách làm" (hiện sau lần sai thứ hai, chạy mô phỏng cách làm đúng).
+
+#### 10.1.2. Trò chơi 2: "Sửa lỗi"
+
+Học sinh làm gì: đọc mã giả 5 dòng có đúng một dòng sai, đọc kết quả chạy thử, bấm vào dòng sai. Sau đó chọn một trong ba cách sửa.
+
+Mã giả gốc (đúng), dùng chung cho cả ba câu:
+
+```
+1  lặp i từ 0 đến n − 2
+2    lặp j từ 0 đến n − i − 2
+3      nếu a[j] > a[j+1] thì
+4        đổi chỗ a[j] và a[j+1]
+5  kết thúc
+```
+
+|Câu|Dòng sai|Nội dung sai|Kết quả chạy thử hiển thị|Dấu hiệu để học sinh nhận ra|Ba cách sửa (đáp án đúng in đậm)|
+|-|-|-|-|-|-|
+|1|Dòng 3|nếu a[j] < a[j+1] thì|Vào 3, 1, 2; ra 3, 2, 1|Dãy ra bị giảm dần thay vì tăng dần|Đổi thành a[j] ≤ a[j+1] / **Đổi thành a[j] > a[j+1]** / Bỏ dòng 3|
+|2|Dòng 1|lặp i từ 0 đến n − 3|Vào 3, 2, 1; ra 2, 1, 3|Dãy còn sai ở đầu dãy, thiếu một lượt|Đổi thành n − 1 / **Đổi thành n − 2** / Đổi thành n|
+|3|Dòng 2|lặp j từ 0 đến n − i − 1|Vào 3, 2, 1; báo lỗi: "a[3] không tồn tại, dãy chỉ có chỉ số 0 đến 2"|j chạy đến ô cuối thì a[j+1] vượt ra ngoài dãy|**Đổi thành n − i − 2** / Đổi thành n − i / Đổi thành n|
+
+Màu sắc (mã giả, kết quả chạy thử, ba cách sửa):
+
+|Thành phần|Nền|Viền|Chữ / dấu|
+|-|-|-|-|
+|Khung mã giả|--bg #f6f7f9|1px --line|Mã --ink, phông đơn cách; số dòng --quiet|
+|Dòng mã khi rê chuột|--panel|Không|Giữ nguyên|
+|Dòng mã đang chạy (nếu có)|--code-hl #fff1c2|Không|--ink|
+|Dòng chọn nhưng không sai|#ffc9c4|1px #d23b2f|✗ --ink cạnh số dòng|
+|Dòng chọn đúng (dòng sai thật)|#c9efc9|1px #2e9a3a|✓ --ink cạnh số dòng|
+|Khung "Kết quả chạy thử"|--panel|1px --line|Nhãn --quiet; dãy vào --ink; dãy ra --ink, đậm, kèm ✗ khi sai|
+|Khung báo lỗi chạy thử (câu 3)|#ffc9c4|#d23b2f|✗ và chữ --ink|
+|Nút ba cách sửa (bình thường)|--panel|1px --line|--ink|
+|Nút cách sửa khi rê chuột|--bg|1px --accent|--ink|
+|Nút cách sửa đã chọn sai|#ffc9c4|1px #d23b2f|--ink kèm ✗|
+|Nút cách sửa đã chọn đúng|#c9efc9|1px #2e9a3a|--ink kèm ✓|
+|Nút "Gợi ý"|--panel|1px --accent|--accent|
+|Khung gợi ý|--code-hl #fff1c2|1px --line|--ink|
+
+- Trước khi học sinh chọn, đáp án đúng không tô khác hai nút còn lại.
+- Khi lập trình, trộn ngẫu nhiên thứ tự ba cách sửa để đáp án đúng không luôn nằm cùng một chỗ.
+- Cách kiểm tra: câu đúng khi chọn đúng dòng và chọn đúng cách sửa, cả hai ở lần đầu và không dùng gợi ý.
+
+|Trường hợp|Lời thông báo|
+|-|-|
+|Chọn một dòng không sai|"Dòng này chưa sai. Bạn thử đọc lại và đối chiếu với kết quả chạy thử."|
+|Chọn đúng dòng sai|"Bạn chọn đúng rồi, dòng này bị sai. Hãy chọn cách sửa nhé."|
+|Chọn sai cách sửa|Chạy thử mã đã sửa theo cách đó và hiện kết quả: "Sửa như vậy thì dãy ra vẫn sai: …"|
+|Chọn đúng cách sửa|Câu 1: "Đúng rồi! Dòng 3 phải đổi chỗ khi a[j] lớn hơn a[j+1], nên dấu phải là lớn hơn." Câu 2: "Đúng rồi! Cần n − 1 lượt, i chạy từ 0 đến n − 2." Câu 3: "Đúng rồi! j chỉ được đến n − i − 2 để a[j+1] không vượt khỏi dãy."|
+
+Màu sắc (lời thông báo):
+
+|Lời báo|Nền|Viền trái 4px|Dấu|Chữ|
+|-|-|-|-|-|
+|Chọn một dòng không sai|#ffc9c4|#d23b2f|✗|--ink|
+|Chọn đúng dòng sai|#c9efc9|#2e9a3a|✓|--ink|
+|Chọn sai cách sửa|#ffc9c4|#d23b2f|✗|--ink|
+|Chọn đúng cách sửa|#c9efc9|#2e9a3a|✓|--ink|
+
+- Gợi ý: "Đọc dòng so sánh hai phần tử / vòng lặp ngoài / vòng lặp trong nhé" (tuỳ câu, không nêu dòng cụ thể).
+
+#### 10.1.3. Quy định chung cho hai trò chơi
+
+- Mỗi trò chơi có 3 câu, xếp từ dễ đến khó. Câu chỉ tính đúng khi trả lời đúng ngay lần đầu và không dùng gợi ý. Trả lời sai thì hiện lời giải thích, cho thử lại tối đa 2 lần; sau lần thứ 3 hiện đáp án và qua câu tiếp, câu đó tính là sai.
+- Cách tính sao: 3 câu đúng được 3 sao; 2 câu đúng được 2 sao; 1 câu đúng được 1 sao; 0 câu đúng được 0 sao. Làm lại không bị trừ sao.
+- Chỉ cần làm xong 1 trò chơi là tính hoàn thành bài. Xong câu 3 thì chuyển sang màn hình Hoàn thành bài (mục 11), truyền theo số câu đúng (0–3).
+- Dữ liệu cần lưu ở mỗi câu: dãy số đầu, trạng thái bắt đầu (i, j), đáp án đúng, nội dung gợi ý, lời giải thích khi đúng, các lời báo khi sai.
+- Báo đúng hoặc sai bằng cả chữ và dấu (✓ hoặc ✗), không chỉ dùng màu, để học sinh khó phân biệt màu vẫn nhận ra.
+- Dùng đúng bốn màu trạng thái của bài học, không thêm màu trạng thái mới.
+- Lời báo sai nói rõ sai gì và cách sửa, ví dụ "Hai ô này đã xếp đúng rồi, bạn thử chọn hai ô còn chưa xét".
+
+## 11. Màn hình Hoàn thành bài
+
+### 11.1. Bố cục tổng thể
+
+|Vùng|Vị trí|Nội dung|
+|-|-|-|
+|Nền trang|Toàn màn hình|Nền xám rất nhạt, có vài mảnh pháo giấy nhỏ|
+|Thẻ kết quả|Giữa màn hình, nền trắng, bo góc, đổ bóng nhẹ|Toàn bộ kết quả và nút điều hướng|
+
+Pháo giấy chạy một lần, tối đa 1,5 giây. Máy bật "giảm chuyển động" thì không chạy pháo giấy.
+
+Màu sắc:
+
+|Thành phần|Màu|
+|-|-|
+|Nền trang|--bg #f6f7f9|
+|Mảnh pháo giấy|Chỉ dùng #ffe7a3, #c9efc9, #ffc9c4 và #6b9bff; chạy phía sau thẻ, không che chữ|
+|Thẻ kết quả|Nền --panel #ffffff, viền 1px --line, viền trên 4px --accent, bóng nhẹ rgba(29,35,48,0.10)|
+
+### 11.2. Thẻ kết quả
+
+|Thứ tự|Thành phần|Nội dung|Ghi chú|
+|-|-|-|-|
+|1|Tên bài|"Bài 2 · Sắp xếp", chữ 18px màu phụ|Cho biết học sinh vừa xong bài nào|
+|2|Tiêu đề|"Hoàn thành bài rồi!", chữ lớn, đậm|Báo kết quả ngay|
+|3|Sao|Ba ngôi sao, số sao đặc bằng số câu đúng trong phần Thử sức: 3 sao đặc (đúng 3/3); 2 sao đặc, 1 sao rỗng (đúng 2/3); 1 sao đặc, 2 sao rỗng (đúng 1/3); 3 sao rỗng (đúng 0/3)|Số sao thể hiện kết quả phần Thử sức|
+|4|Câu giải thích kết quả|Đúng 3/3: "Bạn đã trả lời đúng 3/3 câu. Rất xuất sắc!" Đúng 2/3, 1/3 hoặc 0/3: "Bạn đã trả lời đúng n/3 câu. Làm lại để lấy đủ 3 sao, không bị trừ sao đã có."|Nói rõ vì sao được số sao đó và cách lấy đủ 3 sao|
+|5|Thẻ huy hiệu mới|Hình tròn màu --accent có số huy hiệu màu trắng, kèm dòng chữ "Bạn đã giành được huy hiệu mới."|Chỉ hiện khi đạt huy hiệu mới|
+|6|Hai nút điều hướng|"Làm lại bài" (viền xanh dương, nền trắng) và "Bài tiếp theo" (nền xanh dương, chữ trắng)|Nút chính nằm bên phải, dùng màu nhấn|
+|7|Dòng chú thích|Chưa đăng nhập: "Sao và huy hiệu lưu trên máy này, không cần đăng nhập." Đã đăng nhập: "Sao và huy hiệu đã lưu vào tài khoản của bạn."|Nói rõ dữ liệu lưu ở đâu|
+
+Màu sắc (theo từng thành phần):
+
+|Thứ tự|Thành phần|Nền|Viền|Chữ / màu|
+|-|-|-|-|-|
+|1|Tên bài|Trong suốt|Không|--quiet|
+|2|Tiêu đề|Trong suốt|Không|--ink, đậm|
+|3|Sao đặc|Tô --sao (#B45309)|Không|–|
+|3|Sao rỗng|Bên trong trống|Viền 1.5px --sao|–|
+|4|Câu giải thích, trường hợp 3/3|#c9efc9|1px #2e9a3a, viền trái 4px|--ink, kèm ✓|
+|4|Câu giải thích, các trường hợp còn lại|--bg|1px --line, viền trái 4px --accent|--ink, kèm ⓘ (giọng khích lệ, không dùng đỏ)|
+|5|Thẻ huy hiệu mới|--bg|1px --line|Chữ --ink, đậm|
+|5|Hình tròn huy hiệu|--accent|Không|Số màu trắng, đậm|
+|6|Nút "Làm lại bài"|--panel|2px --accent|--accent, đậm|
+|6|Nút "Bài tiếp theo"|--accent|Không|Trắng, đậm|
+|6|Viền khi dùng bàn phím (Tab)|Không đổi|2px --ink, cách nút 2px|Không đổi|
+|7|Dòng chú thích|Trong suốt|Đường kẻ trên 1px --line|--quiet, 13px|
+
+Lưu ý: sao trên nền sáng dùng màu --sao (#B45309) để đạt tương phản 5:1 với nền trắng. Màu vàng #FCD34D chỉ dùng trên nền tím của cột lộ trình. Trong thẻ kết quả, chữ trắng chỉ đặt trên nền --accent.
